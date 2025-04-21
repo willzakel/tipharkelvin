@@ -4,8 +4,22 @@
     <title>Chat App</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        // Explicitly connect to the backend URL
-        var socket = io('https://chatapp-ppfq.onrender.com');
+        // Use relative path for Socket.IO connection
+        var socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to the server');
+        });
+
+        socket.on('connect_error', function(error) {
+            console.error('Error connecting to the server:', error);
+            alert('Error connecting to the server. Please try again later.');
+        });
+
+        socket.on('connect_timeout', function() {
+            console.error('Connection to the server timed out');
+            alert('Connection to the server timed out. Please try again later.');
+        });
 
         function sendMessage() {
             var msg = document.getElementById('message').value;
