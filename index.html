@@ -4,13 +4,16 @@
     <title>Chat App</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io();
+        // Explicitly connect to the backend URL
+        var socket = io('https://chatapp-ppfq.onrender.com');
+
         function sendMessage() {
             var msg = document.getElementById('message').value;
             socket.emit('chat message', msg);
             document.getElementById('message').value = '';
             return false;
         }
+
         socket.on('chat message', function(msg) {
             var item = document.createElement('li');
             item.textContent = msg;
